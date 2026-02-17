@@ -60,7 +60,6 @@ export function WordCountPlugin() {
   }, [editor]);
 
   return (
-    /* Responsive HUD: Hidden on very small screens, repositioned to avoid mobile keyboards */
     <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 px-3 py-1.5 bg-panel/50 backdrop-blur-md border border-line rounded-md text-[10px] font-bold tracking-widest text-muted transition-all hover:opacity-100 opacity-40 select-none z-40 hidden sm:block">
       {count} WORDS
     </div>
@@ -85,14 +84,11 @@ export function Editor({ }: { documentId: string }) {
   };
 
   return (
-    // 1. Outer Container: Flex center with vertical padding
     <div className="flex flex-col items-center w-full min-h-full bg-canvas py-4 md:py-12 transition-colors duration-500 px-2 sm:px-4">
       
       <LexicalComposer initialConfig={initialConfig}>
-           {/* 1. TOP HEADER: Status & AI Tools */}
 <div className="w-full max-w-[900px] px-6 py-3 flex justify-between items-center transition-colors duration-300">
   
-  {/* Left Side: Document Identity */}
   <div className="flex items-center gap-4">
     <div className="flex flex-col">
       <div className="flex items-center gap-2">
@@ -107,22 +103,18 @@ export function Editor({ }: { documentId: string }) {
     </div>
   </div>
 
-  {/* Right Side: Action Cluster */}
   <div className="flex items-center gap-1 bg-panel/50 backdrop-blur-md p-1 rounded-md
    border border-line/50 shadow-sm">
     <MagicWandButton />
     <AIGenerateTools />
   </div>
 </div>
-        {/* 2. Floating Toolbar: Still pill-shaped, sits above the frame */}
         <div className="sticky top-6 z-30 mb-10">
            <Toolbar />
         </div>
 
-        {/* 3. THE FRAMED CANVAS: Added Border, Rounded Corners, and Shadow */}
         <div className="w-full max-w-[900px] bg-panel/30 border border-line rounded-xl shadow-float overflow-hidden backdrop-blur-sm">
           
-          {/* Internal Gutter Layout */}
           <div 
             className="relative px-6 py-10 md:px-16 md:py-20 min-h-[70vh] md:min-h-[80vh]" 
             ref={editorContainerRef}
@@ -143,7 +135,6 @@ export function Editor({ }: { documentId: string }) {
               ErrorBoundary={LexicalErrorBoundary}
               />
 
-            {/* Core Extensions */}
             <TablePlugin />
             <AutoLinkPlugin />
               <CodeBlockExitPlugin />
@@ -151,7 +142,6 @@ export function Editor({ }: { documentId: string }) {
             <EquationsPlugin />
             <SlashMenuPlugin />
             
-            {/* Logic & Meta Plugins */}
             <HistoryPlugin />
             <ListPlugin /> 
             <TabIndentationPlugin />

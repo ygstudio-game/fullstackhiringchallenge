@@ -1,11 +1,10 @@
-// src/App.tsx
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthScreen } from '@features/auth';
 import { BlogView } from '@features/editor';
 import { MainLayout } from '@components/layout/MainLayout';
 import { ProtectedRoute } from '@features/auth/components/ProtectedRoute';
 import { EditorWorkspace } from './pages/EditorWorkspace';
-import { ThemeProvider } from '@components/providers/ThemeProvider'; // <-- Import it
+import { ThemeProvider } from '@components/providers/ThemeProvider';  
 
 
 function App() {

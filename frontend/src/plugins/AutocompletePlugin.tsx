@@ -10,21 +10,16 @@ export function AutocompletePlugin() {
 
   useEffect(() => {
 
-    // Registering a keyboard listener for the specific combo
     const unregister = editor.registerCommand(
       KEY_TAB_COMMAND,
       () => {
-        // If user presses Space while Tab is down (or just after)
-        // Note: For simplicity, we'll use a custom sequence or a long-press logic
         return false; 
       },
       COMMAND_PRIORITY_LOW
     );
 
-    // Let's use a standard keydown for the specific Tab + Space combo
     const handleKeyDown = async (e: KeyboardEvent) => {
       if (e.key === 'Tab') {
-        // We prevent default Tab behavior to check for the next key
         e.preventDefault();
         
         const spaceListener = async (se: KeyboardEvent) => {
@@ -38,7 +33,6 @@ export function AutocompletePlugin() {
         window.addEventListener('keydown', spaceListener, { once: true });
       }
 
-      // If ghost text exists and user presses TAB again, commit it
       if (e.key === 'Tab' && ghostText) {
         e.preventDefault();
         commitGhost();

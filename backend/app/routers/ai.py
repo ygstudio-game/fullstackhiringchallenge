@@ -3,9 +3,6 @@ from app.schemas.ai import AIRequest, AIGenerateRequest
 from app.services.ai_service import AIService
 
 router = APIRouter(prefix="/api/ai", tags=["AI"])
-
-
- 
 @router.post("/fix-grammar")
 async def fix_grammar(request: AIRequest):
     try:

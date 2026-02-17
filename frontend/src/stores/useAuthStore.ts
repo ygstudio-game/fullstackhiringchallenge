@@ -5,7 +5,6 @@ interface AuthState {
   email: string | null;
   isAuthenticated: boolean;
   login: (token: string, email: string) => void;
-  // 1. ADD THIS TO THE INTERFACE
   register: (token: string, email: string) => void; 
   logout: () => void;
 }
@@ -21,8 +20,6 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ token, email, isAuthenticated: true });
   },
 
-  // 2. IMPLEMENT THE REGISTER FUNCTION
-  // Usually, after registering, we log the user in immediately
   register: (token: string, email: string) => {
     localStorage.setItem('token', token);
     localStorage.setItem('email', email);

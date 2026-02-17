@@ -5,9 +5,7 @@ import { useEditorStore } from '@stores';
 import { useAutoSave } from '@hooks/useAutoSave';
 import { postService } from '@api/services/postService';
 import toast from 'react-hot-toast';
-
-// The unbreakable empty state
-const SAFE_EMPTY_STATE = '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
+import { SAFE_EMPTY_STATE } from '@/constants/editor';
 
 function getSafeLexicalState(state: any): string {
   if (!state || state === "{}" || state === "null") return SAFE_EMPTY_STATE;
@@ -40,10 +38,8 @@ useAutoSave(
  useEffect(() => {
   const fetchLibrary = async () => {
     try {
-      // 1. Fetch all documents (Drafts + Published) from your API
       const data = await postService.getAll(); 
       
-      // 2. Hydrate your Zustand store
       setDrafts(data);
     } catch (error) {
       console.error("Failed to fetch documents", error);
@@ -55,15 +51,12 @@ useAutoSave(
 }, [setDrafts]);
   useEffect(() => {
     const initializeWorkspace = async () => {
-      // 1. If we are on the root route ("/"), DO NOT CREATE A DOCUMENT.
-      // Just clear the state and let the dashboard render.
       if (!urlDocumentId) {
         setDocumentId(null);
         setLocalState(null);
         return;
       }
 
-      // 2. If we have an ID in the URL, fetch it safely.
       try {
         const data = await postService.getById(urlDocumentId);
         setLocalState(getSafeLexicalState(data.lexical_state));
@@ -73,17 +66,15 @@ useAutoSave(
       } catch (error) {
         console.error("Initialization failed", error);
         toast.error("Document not found.");
-        navigate('/', { replace: true }); // Kick to safe dashboard if document is deleted
+        navigate('/', { replace: true });  
       }
     };
 
-    // Only run if the URL ID doesn't match the currently loaded document
     if (urlDocumentId !== documentId) {
       initializeWorkspace();
     }
   }, [urlDocumentId, documentId, setDocumentId, setLocalState, setDocumentStatus, setIsOwner, navigate]);
 
-  // 3. THE NEW DASHBOARD: Renders when the user is on "/"
   if (!urlDocumentId) {
     return (
       <div className="flex h-full flex-col items-center justify-center text-gray-400">
@@ -96,7 +87,6 @@ useAutoSave(
     );
   }
 
-  // 4. Loading state while switching between valid documents
   if (documentId !== urlDocumentId) {
     return <div className="flex h-full items-center justify-center text-gray-400 animate-pulse">Loading document...</div>;
   }

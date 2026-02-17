@@ -1,11 +1,9 @@
 import { create } from 'zustand';
-// 1. IMPORT the single source of truth for the Post type
 import { type Post } from '@api/services/postService';
 
 type SyncState = 'IDLE' | 'UNSAVED' | 'SAVING' | 'SAVED' | 'ERROR';
 type DocumentStatus = 'DRAFT' | 'PUBLISHED';
 
-// Notice: The local `interface Post` has been DELETED. 
 
 interface EditorState {
   drafts: Post[];
@@ -40,7 +38,6 @@ export const useEditorStore = create<EditorState>((set) => ({
 setLocalState: (jsonString) => set({ localState: jsonString }),
   setSyncStatus: (status) => set({ syncStatus: status }),
   setDocumentStatus: (status: DocumentStatus) => set({ documentStatus: status }),
-  // NEW ACTIONS
   addDraft: (draft) => set((state) => ({ 
     drafts: [draft, ...state.drafts] 
   })),

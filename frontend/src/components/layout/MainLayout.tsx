@@ -21,17 +21,14 @@ export function MainLayout() {
   return (
     <div className="flex h-screen w-full bg-canvas overflow-hidden font-sans transition-colors duration-300">
       
-      {/* 1. SIDEBAR: Now accepts props for responsive control */}
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
 
       <Toaster position="bottom-right" reverseOrder={false} />
       
       <div className="flex-1 flex flex-col min-w-0 md:border-l border-line">
         
-        {/* 2. RESPONSIVE HEADER */}
         <header className="flex items-center justify-between px-6 md:px-8 py-4 bg-canvas/80 backdrop-blur-md sticky top-0 z-20 border-b border-line md:border-none">
           <div className="flex items-center gap-3">
-            {/* Mobile Menu Toggle: Only visible on small screens */}
             <button 
               onClick={() => setIsSidebarOpen(true)}
               className="p-2 -ml-2 text-muted hover:text-ink md:hidden transition-colors"
@@ -51,7 +48,6 @@ export function MainLayout() {
           <HeaderActions />
         </header>
 
-        {/* 3. SCROLLABLE CONTENT */}
         <main className="flex-1 overflow-y-auto px-4 md:px-10 pb-20 custom-scrollbar">
           <Outlet /> 
         </main>

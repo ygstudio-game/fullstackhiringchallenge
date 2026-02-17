@@ -79,12 +79,9 @@ async def delete_post(
     if not ObjectId.is_valid(post_id):
         raise HTTPException(status_code=400, detail="Invalid ID")
 
-    # Call the service layer to perform the deletion
     success = await PostService.delete_post(post_id, user_id)
 
     if not success:
-        # If deleted_count is 0, either the post doesn't exist, 
-        # or a user is trying to delete someone else's post!
         raise HTTPException(status_code=404, detail="Post not found or unauthorized to delete")
 
     return {"message": "Draft deleted successfully"}

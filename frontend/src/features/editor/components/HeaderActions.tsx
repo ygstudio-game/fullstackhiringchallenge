@@ -51,7 +51,6 @@ export function HeaderActions() {
 
   return (
     <div className="flex items-center gap-2 sm:gap-4">
-      {/* 1. Share Button: Icon-only on mobile */}
       <button 
         onClick={handleShare}
         className="flex items-center justify-center p-2 sm:p-0 text-sm font-medium text-muted hover:text-accent transition-colors min-w-[40px] sm:min-w-[64px]"
@@ -63,7 +62,6 @@ export function HeaderActions() {
         <span className="hidden sm:inline">{shareText}</span>
       </button>
 
-      {/* 2. Publish Button: Reduced padding on mobile */}
       <button 
         onClick={handlePublish}
         disabled={documentStatus === 'PUBLISHED'}
@@ -81,18 +79,15 @@ export function HeaderActions() {
 
       <ThemeToggle />
 
-      {/* 3. Profile & Logout: Compact on mobile */}
       <div className="flex items-center gap-2 sm:gap-3 border-l border-line pl-2 sm:pl-4">
         <div className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 bg-ink/5 text-ink rounded-full font-bold text-[10px] sm:text-xs uppercase border border-line">
           {email ? email.charAt(0) : 'U'}
         </div>
         
-        {/* Email hidden on mobile to save space */}
         <span className="text-xs text-muted font-medium truncate max-w-[80px] hidden lg:block">
           {email}
         </span>
 
-        {/* Logout: Icon on mobile, Button on desktop */}
         <button
           onClick={handleLogout}
           className="p-2 sm:px-3 sm:py-1.5 text-xs font-semibold text-red-500 hover:bg-red-500/10 rounded-md transition-all"

@@ -17,22 +17,16 @@ export function HoverBlockMenuPlugin({ containerRef }: { containerRef: RefObject
   const menuRef = useRef<HTMLDivElement>(null);
   const [isEquationModalOpen, setIsEquationModalOpen] = useState(false);
   const formatEquation = () => {
-    // 3. Instead of prompt(), just open the modal and close the dropdown!
     setIsEquationModalOpen(true); 
     setIsMenuOpen(false);
     setSearchTerm('');
   };
 
-  // 4. Create the handler that receives the data FROM the modal
-// 4. Create the handler that receives the data FROM the modal
   const handleInsertEquation = (equation: string, inline: boolean) => {
-    // 1. Close the modal first
     setIsEquationModalOpen(false);
     
-    // 2. Force the Lexical Editor to recapture DOM focus
     editor.focus();
     
-    // 3. Wait 1 tick for the browser focus to settle, then dispatch the command
     setTimeout(() => {
       editor.dispatchCommand(INSERT_EQUATION_COMMAND, { equation, inline });
     }, 10);
@@ -58,7 +52,7 @@ export function HoverBlockMenuPlugin({ containerRef }: { containerRef: RefObject
       if (domNode && domNode.parentElement === rootElement) {
         setPosition({
           top: domNode.offsetTop,
-          left: -12, // Adjusted left to fit both the + and the drag handle
+          left: -10,
         });
       }
     };
@@ -76,7 +70,6 @@ export function HoverBlockMenuPlugin({ containerRef }: { containerRef: RefObject
     };
   }, [editor, isMenuOpen, containerRef]);
 
-  // Close menu if clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -88,7 +81,6 @@ export function HoverBlockMenuPlugin({ containerRef }: { containerRef: RefObject
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // 2. Block Transformation Logic
   const transformBlock = (action: () => void) => {
     editor.update(() => {
       const selection = $getSelection();
@@ -107,7 +99,6 @@ export function HoverBlockMenuPlugin({ containerRef }: { containerRef: RefObject
     setIsMenuOpen(false);
     setSearchTerm('');
   };
-  // 2. Add the Table Formatter (Defaults to 3x3)
   const formatTable = () => {
     editor.dispatchCommand(INSERT_TABLE_COMMAND, { columns: '3', rows: '3', includeHeaders: true });
     setIsMenuOpen(false);
@@ -128,7 +119,6 @@ export function HoverBlockMenuPlugin({ containerRef }: { containerRef: RefObject
   
   ];
 
-  // Filter options based on search input
   const filteredOptions = MENU_OPTIONS.filter((option) =>
     option.label.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -144,7 +134,6 @@ export function HoverBlockMenuPlugin({ containerRef }: { containerRef: RefObject
       />
     <div className="absolute z-10 flex items-center gap-0.5 transition-all duration-75 ease-out" style={{ top: position.top, left: position.left }}>
       
-      {/* 4. The Draggable Grab Handle (⋮⋮) */}
       <div
         draggable={true} // Enables native HTML5 dragging API
         className="flex items-center justify-center w-5 h-6 rounded text-gray-300 hover:text-gray-600 hover:bg-gray-100 cursor-grab active:cursor-grabbing transition-colors"
@@ -155,7 +144,6 @@ export function HoverBlockMenuPlugin({ containerRef }: { containerRef: RefObject
         </svg>
       </div>
 
-      {/* 5. The floating `+` icon */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className="flex items-center justify-center w-6 h-6 rounded-md text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition-colors shadow-sm bg-white border border-gray-100"
@@ -164,7 +152,6 @@ export function HoverBlockMenuPlugin({ containerRef }: { containerRef: RefObject
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
       </button>
 
-      {/* 6. The Component Picker Dropdown with Search */}
       {isMenuOpen && (
         <div ref={menuRef} className="absolute left-12 top-0 w-64 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
           
@@ -184,7 +171,6 @@ export function HoverBlockMenuPlugin({ containerRef }: { containerRef: RefObject
             Basic Blocks
           </div>
           
-          {/* Scrollable List */}
           <ul className="max-h-64 overflow-y-auto p-1.5 space-y-0.5">
             {filteredOptions.length > 0 ? (
               filteredOptions.map((option) => (

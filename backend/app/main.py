@@ -9,9 +9,8 @@ from app.database import db_instance
 from app.routers.auth import router as auth_router
 from app.routers.posts import router as posts_router
 from app.routers.ai import router as ai_router
-from app.routers.health import router as health_router # Include your new health route
+from app.routers.health import router as health_router  
 
-# --- Configure Gemini globally ---
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
 @asynccontextmanager
@@ -20,7 +19,6 @@ async def lifespan(app: FastAPI):
     yield
     db_instance.close_db()
 
-# --- FastAPI Initialization with Branding ---
 app = FastAPI(
     title="Smart Blog Editor API",
     version="1.0.0",
@@ -45,12 +43,10 @@ app.include_router(posts_router)
 app.include_router(ai_router)
 app.include_router(health_router)
 
-# --- CUSTOM OPENAPI CONFIGURATION (The "Hiring Flex") ---
 def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
     
-    # Base schema
     openapi_schema = get_openapi(
         title=app.title,
         version=app.version,
@@ -59,7 +55,6 @@ def custom_openapi():
         routes=app.routes,
     )
 
-    # 1. Define the Security Scheme (The Authorize Button)
     openapi_schema["components"]["securitySchemes"] = {
         "BearerAuth": {
             "type": "http",
@@ -69,8 +64,6 @@ def custom_openapi():
         }
     }
 
-    # 2. Assign Security Globally to all routes
-    # This adds the 'lock' icon to every protected endpoint
     openapi_schema["security"] = [{"BearerAuth": []}]
 
     app.openapi_schema = openapi_schema

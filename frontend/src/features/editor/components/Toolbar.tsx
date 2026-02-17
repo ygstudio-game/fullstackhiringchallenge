@@ -38,7 +38,6 @@ export function Toolbar() {
  
     <div className="sticky top-0 z-10 flex items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 bg-panel/90 backdrop-blur-xl border border-line rounded-lg shadow-sm w-full max-w-full overflow-x-auto no-scrollbar scroll-smooth transition-all">
       
-      {/* 1. History - Essential: Always Visible */}
       <div className="flex items-center border-r border-line/30 pr-1 shrink-0">
         <ToolbarButton 
           onClick={() => editor.dispatchCommand(UNDO_COMMAND, undefined)} 
@@ -52,7 +51,6 @@ export function Toolbar() {
         />
       </div>
 
-      {/* 2. Text Formatting - High Priority */}
       <div className="flex items-center border-r border-line/30 pr-1 shrink-0">
         <ToolbarButton 
           onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')} 
@@ -71,7 +69,6 @@ export function Toolbar() {
         />
       </div>
 
-      {/* 3. Text Styling - Hidden/Collapsed logic for small screens */}
       <div className="flex items-center gap-1 sm:gap-2 border-r border-line/30 pr-1 shrink-0">
         <div className="relative group">
           <select 
@@ -94,7 +91,6 @@ export function Toolbar() {
         </div>
       </div>
 
-      {/* 4. Alignment - Icons: Always Visible but smaller gaps */}
       <div className="flex items-center border-r border-line/30 pr-1 shrink-0">
         <ToolbarButton 
           onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')} 
@@ -108,7 +104,6 @@ export function Toolbar() {
         />
       </div>
 
-      {/* 5. Blocks - Final group */}
       <div className="flex gap-0.5 sm:gap-1 shrink-0 items-center">
         <button onClick={() => formatHeading('h1')} className="h-8 w-8 text-[11px] font-bold text-muted hover:text-ink hover:bg-canvas rounded-md transition-all">H1</button>
         <button onClick={() => formatHeading('h2')} className="h-8 w-8 text-[11px] font-bold text-muted hover:text-ink hover:bg-canvas rounded-md transition-all">H2</button>

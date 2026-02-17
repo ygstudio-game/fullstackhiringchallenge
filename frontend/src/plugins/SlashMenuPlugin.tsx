@@ -7,7 +7,6 @@ import { INSERT_UNORDERED_LIST_COMMAND, INSERT_ORDERED_LIST_COMMAND } from '@lex
 import { $getSelection, $isRangeSelection } from 'lexical';
 import { createPortal } from 'react-dom';
 
-// 1. Define the Option Shape
 class SlashOption extends MenuOption {
   title: string;
   icon: string;

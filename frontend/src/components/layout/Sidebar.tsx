@@ -24,7 +24,7 @@ export function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (v:
     }
     setDocumentStatus(draft.status);
     setIsOwner(true);
-    setIsOpen(false); // Close drawer on mobile after selection
+    setIsOpen(false); 
   };
 
   const handleCreateNew = async () => {

@@ -17,45 +17,37 @@ export function AuthScreen() {
     setIsLoading(true);
 
     try {
-      // 1. Call the clean service layer based on the mode
       const data = isLogin 
         ? await authService.login(email, password)
         : await authService.signup(email, password);
 
-      // 2. Update global state
       login(data.access_token, data.email);
-      toast.success(isLogin ? "Logged in successfully!" : "Account created successfully!"); // You can add success toasts manually
+      toast.success(isLogin ? "Logged in successfully!" : "Account created successfully!");  
       navigate("/");  
 
     } catch (error) {
       console.error("Authentication Error:", error);
-      toast.error("Authentication failed. Please check your credentials and try again."); // You can add error toasts manually
+      toast.error("Authentication failed. Please check your credentials and try again.");  
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    // The entire screen uses our soft `bg-canvas` and animates its colors
     <div className="min-h-screen flex flex-col items-center justify-center bg-canvas text-ink p-4 transition-colors duration-300 relative overflow-hidden">
       
-      {/* 2. Floating Theme Toggle in the Top Right */}
       <div className="absolute top-6 right-6 sm:top-8 sm:right-8 z-10 bg-panel/80 backdrop-blur-sm border border-line rounded-sm p-1 shadow-sm">
         <ThemeToggle />
       </div>
 
-      {/* Subtle Background Decoration (Optional, adds a premium feel) */}
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/5 rounded-sm blur-3xl pointer-events-none"></div>
 
-      {/* 3. The Auth Card uses `bg-panel` to sit slightly above the canvas */}
       <div className="w-full max-w-md bg-panel rounded-[24px] shadow-float border border-line p-8 sm:p-10 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
         
-        {/* Logo & Header */}
         <div className="text-center mb-8">
           <div className="w-12 h-12 bg-ink text-canvas rounded-md flex items-center justify-center font-bold font-serif text-2xl mx-auto mb-4 shadow-sm">
             S
           </div>
-          {/* We use our gorgeous Fraunces Serif font here */}
           <h2 className="text-3xl font-serif font-bold tracking-tight text-ink mb-1.5">
             {isLogin ? 'Welcome back' : 'Join Smart Editor'}
           </h2>
@@ -64,7 +56,6 @@ export function AuthScreen() {
           </p>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5 font-sans">
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-muted uppercase tracking-wider ml-1">Email</label>
@@ -90,7 +81,6 @@ export function AuthScreen() {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={isLoading || !email || !password}
@@ -100,7 +90,6 @@ export function AuthScreen() {
           </button>
         </form>
 
-        {/* Toggle Login/Signup */}
         <div className="mt-8 text-center">
           <button
             type="button"

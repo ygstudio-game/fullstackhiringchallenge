@@ -88,7 +88,7 @@ export function DocumentTitle() {
         </div>
       )}
 
-      {/* AI Suggestion Button - Styled to match AIButton from previous steps */}
+      {/* AI Suggestion Button  */}
       <button
         onClick={handleAIGenerateTitle}
         disabled={isGenerating}

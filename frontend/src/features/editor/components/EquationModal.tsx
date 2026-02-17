@@ -22,8 +22,8 @@ export function EquationModal({ isOpen, onClose, onConfirm }: EquationModalProps
         try {
           katex.render(equation, previewRef.current, {
             displayMode: !inline,
-            errorColor: '#ef4444', // Tailwind red-500
-            throwOnError: false,   // Prevents crashing while the user is typing
+            errorColor: '#ef4444',
+            throwOnError: false,
             strict: 'ignore'
           });
         } catch (error) {
@@ -44,7 +44,7 @@ export function EquationModal({ isOpen, onClose, onConfirm }: EquationModalProps
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
       <div 
         className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100 animate-in zoom-in-95 duration-200"
-        onClick={(e) => e.stopPropagation()} // Prevent clicks inside from closing
+        onClick={(e) => e.stopPropagation()}  
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50/50">

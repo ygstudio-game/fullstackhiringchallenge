@@ -9,7 +9,6 @@ class PostService:
     async def create_draft(user_id: str) -> str:
         db = get_db()
         
-        # The STRICT Lexical minimum viable state
         valid_initial_state = {
             "root": {
                 "children": [
@@ -32,7 +31,7 @@ class PostService:
 
         new_post = {
             "title": "Untitled Draft",
-            "lexical_state": valid_initial_state, # <-- Use the valid state here
+            "lexical_state": valid_initial_state,  
             "status": "DRAFT",
             "user_id": user_id,
             "created_at": datetime.utcnow(),
@@ -79,17 +78,13 @@ class PostService:
         if not is_published and not is_owner:
              raise HTTPException(status_code=403, detail="This document is private.")
 
-        # --- NEW LOGIC: Fetch Author Details ---
         author_name = "Anonymous"
         author_email = ""
         
-        # Look up the user who owns this post
         author = await db["users"].find_one({"_id": ObjectId(post["user_id"])})
         if author:
-            # We use the email prefix as a 'handle' if no name is set
             author_email = author.get("email", "")
             author_name = author_email.split('@')[0] 
-        # --------------------------------------
 
         return {
             "_id": str(post["_id"]),
@@ -113,10 +108,9 @@ class PostService:
     async def delete_post(post_id: str, user_id: str) -> bool:
         db = get_db()
         
-        # Security: Must match both _id and user_id to prevent unauthorized deletion
         result = await db["posts"].delete_one({
             "_id": ObjectId(post_id),
-            "user_id": user_id  # Note: using "user_id" based on your schema
+            "user_id": user_id   
         })
         
         return result.deleted_count > 0

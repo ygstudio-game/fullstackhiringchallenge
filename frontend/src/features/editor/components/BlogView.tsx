@@ -28,7 +28,7 @@ const [completion, setCompletion] = useState(0);
 
   const [loading, setLoading] = useState(true);
 const [postData, setPostData] = useState<BlogFeedPost | null>(null);
-  // 2. Helper to calculate read time from Lexical JSON
+  //  Helper to calculate read time from Lexical JSON
   const calculateReadTime = (state: any): string => {
     try {
       const getText = (node: any): string => {
@@ -59,7 +59,7 @@ useEffect(() => {
     const fetchPublishedContent = async () => {
       if (!id) return;
       try {
-        // 4. Cast the response so TypeScript knows it contains the Author data
+        // Cast the response so TypeScript knows it contains the Author data
         const data = await postService.getById(id) as BlogFeedPost;
         setPostData(data);
       } catch (error) {

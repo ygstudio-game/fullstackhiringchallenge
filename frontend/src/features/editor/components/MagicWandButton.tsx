@@ -3,7 +3,6 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { $getRoot } from 'lexical';
 import { $convertToMarkdownString, $convertFromMarkdownString, TRANSFORMERS } from '@lexical/markdown';
 
-// 1. Import your clean API service and the toaster
 import { aiService } from '@api/services/aiService';
 import toast from 'react-hot-toast';
 
@@ -24,23 +23,18 @@ export function MagicWandButton() {
     setIsGenerating(true);
 
     try {
-      // 2. MAANG-style API Call: One typed line of code
       const data = await aiService.fixGrammar(currentMarkdown);
       const improvedMarkdown = data.improved_text;
 
-      // 3. Convert the improved Markdown BACK into a rich Lexical tree
       editor.update(() => {
         const root = $getRoot();
         root.clear(); // Clear old content
         $convertFromMarkdownString(improvedMarkdown, TRANSFORMERS);
       });
 
-      // Optional: Add a nice UX touch!
       toast.success('Grammar & tone improved!');
 
     } catch (error) {
-      // We log for debugging, but NO alert() needed! 
-      // The client.ts interceptor handles the UI error toast automatically.
       console.error('Failed to fix grammar:', error);
     } finally {
       setIsGenerating(false);

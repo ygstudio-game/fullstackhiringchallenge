@@ -87,10 +87,6 @@ function AIButton({ onClick, isLoading, isDisabled, label, icon, kbd, title }: a
       onClick={onClick}
       disabled={isDisabled}
       title={title}
-      /* Responsive UX:
-        - Icon-only on mobile (label hidden below 'md' breakpoint)
-        - Reduced horizontal padding on mobile (px-2 vs px-3)
-      */
       className={`
         relative group flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-3 h-8 rounded-lg text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95
         ${isLoading 
@@ -109,7 +105,6 @@ function AIButton({ onClick, isLoading, isDisabled, label, icon, kbd, title }: a
         {icon}
       </span>
       
-      {/* Label is hidden on mobile to save space, but "Thinking" shows to provide feedback */}
       <span className={`relative z-10 ${isLoading ? 'block' : 'hidden sm:block'}`}>
         {isLoading ? (
           <>

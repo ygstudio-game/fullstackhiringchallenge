@@ -8,7 +8,6 @@ export type SerializedEquationNode = SerializedLexicalNode & {
   inline: boolean;
 };
 
-// 1. The React Component that renders the LaTeX string into UI
 function EquationComponent({ equation, inline }: { equation: string; inline: boolean }) {
   const html = katex.renderToString(equation, {
     displayMode: !inline,
@@ -28,7 +27,6 @@ function EquationComponent({ equation, inline }: { equation: string; inline: boo
   );
 }
 
-// 2. The Lexical Node Definition
 export class EquationNode extends DecoratorNode<React.ReactElement> {
   __equation: string;
   __inline: boolean;

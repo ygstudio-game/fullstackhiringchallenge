@@ -7,7 +7,6 @@ genai.configure(api_key=getenv("GEMINI_API_KEY"))
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
-
 class AIService:
 
     @staticmethod
