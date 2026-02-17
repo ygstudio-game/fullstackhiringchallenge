@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useEditorStore } from '@stores';
 import { postService } from '@api/services/postService';
 
-export function useAutoSave(lexicalStateJSON: string, documentId: string, delay = 2000) {
+export function useAutoSave(lexicalStateJSON: string, documentId: string, delay = 1500) {
   // 2. Destructure everything we need from the store, including the isOwner flag
   const { setSyncStatus, isOwner, syncDraftInList } = useEditorStore();
   
@@ -37,7 +37,6 @@ export function useAutoSave(lexicalStateJSON: string, documentId: string, delay 
       setSyncStatus('SAVING');
 
       try {
-        // 5. MAANG-style API Call: One clean line. 
         // Interceptors handle the Base URL and the Bearer Token automatically.
         await postService.update(documentId, { 
           lexical_state: JSON.parse(lexicalStateJSON) 
