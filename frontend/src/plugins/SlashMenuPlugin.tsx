@@ -4,7 +4,7 @@ import { LexicalTypeaheadMenuPlugin, MenuOption, useBasicTypeaheadTriggerMatch }
 import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text';
 import { $setBlocksType } from '@lexical/selection';
 import { INSERT_UNORDERED_LIST_COMMAND, INSERT_ORDERED_LIST_COMMAND } from '@lexical/list';
-import { $getSelection, $isRangeSelection, FORMAT_ELEMENT_COMMAND } from 'lexical';
+import { $getSelection, $isRangeSelection } from 'lexical';
 import { createPortal } from 'react-dom';
 
 // 1. Define the Option Shape

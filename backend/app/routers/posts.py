@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from bson import ObjectId
 from typing import Optional
-from datetime import datetime
-
+ 
 from app.schemas.post import PostUpdateSchema
 from app.utils.dependencies import get_current_user, get_optional_user
 from app.services.post_service import PostService

@@ -24,11 +24,12 @@ export function AuthScreen() {
 
       // 2. Update global state
       login(data.access_token, data.email);
+      toast.success(isLogin ? "Logged in successfully!" : "Account created successfully!"); // You can add success toasts manually
       navigate("/");  
 
     } catch (error) {
       console.error("Authentication Error:", error);
-      alert(isLogin ? "Invalid credentials." : "User already exists or invalid data.");
+      toast.error("Authentication failed. Please check your credentials and try again."); // You can add error toasts manually
     } finally {
       setIsLoading(false);
     }

@@ -9,18 +9,11 @@ export function AutocompletePlugin() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      // TRIGGER: Tab + Space
-      if (event.key === ' ' && event.shiftKey === false && (event.target as HTMLElement).closest('.editor-input')) {
-        // We check if Tab was recently pressed or held? 
-        // Simpler: Just check if user is holding Tab while pressing Space
-      }
-    };
 
     // Registering a keyboard listener for the specific combo
     const unregister = editor.registerCommand(
       KEY_TAB_COMMAND,
-      (event: KeyboardEvent) => {
+      () => {
         // If user presses Space while Tab is down (or just after)
         // Note: For simplicity, we'll use a custom sequence or a long-press logic
         return false; 

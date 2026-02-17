@@ -3,8 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { Sidebar } from './Sidebar';
 import { HeaderActions } from '@features/editor';
-import { useThemeStore } from '@stores/useThemeStore'; // <-- 1. Import the store
-import { ThemeToggle } from '../ui/ThemeToggle';
+import { useThemeStore } from '@stores/useThemeStore';  
 
 export function MainLayout() {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);

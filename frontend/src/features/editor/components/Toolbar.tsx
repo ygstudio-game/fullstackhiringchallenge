@@ -10,7 +10,6 @@ import {
 import { $setBlocksType, $patchStyleText } from "@lexical/selection";
 import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND } from "@lexical/list";
 import { $createHeadingNode, type HeadingTagType } from "@lexical/rich-text";
-import { useThemeStore } from "@stores/useThemeStore"; // <-- Imported for logic if needed
 
 export function Toolbar() {
   const [editor] = useLexicalComposerContext();

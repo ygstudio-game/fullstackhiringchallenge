@@ -23,7 +23,7 @@ import { useEditorStore } from '@stores/useEditorStore';
 import { editorTheme } from '@theme/theme';
 
 // Feature Components
-import { FloatingToolbar } from './FloatingToolbar';
+// import { FloatingToolbar } from './FloatingToolbar';
 import { Toolbar } from './Toolbar'; 
 import { DocumentTitle } from './DocumentTitle';
 import { HoverBlockMenuPlugin } from '@/plugins/HoverBlockMenuPlugin';
@@ -68,7 +68,7 @@ export function WordCountPlugin() {
   );
 }
 
-export function Editor({ documentId }: { documentId: string }) {
+export function Editor({ }: { documentId: string }) {
   const setLocalState = useEditorStore((state) => state.setLocalState);
   const localState = useEditorStore((state) => state.localState);
   const editorContainerRef = useRef<HTMLDivElement>(null!) as React.RefObject<HTMLDivElement>;

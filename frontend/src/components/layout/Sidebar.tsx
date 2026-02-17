@@ -18,7 +18,7 @@ export function Sidebar() {
   const navigate = useNavigate();
 
   const handleSelectPost = (draft: Post) => {
-    setDocumentId(draft._id);
+    // setDocumentId(draft._id);
     navigate(`/edit/${draft._id}`);
     
     if (draft.content) {

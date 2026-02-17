@@ -1,4 +1,4 @@
-import type { EditorConfig, LexicalNode, NodeKey, SerializedLexicalNode } from 'lexical';
+import type { EditorConfig, NodeKey, SerializedLexicalNode } from 'lexical';
 import { DecoratorNode } from 'lexical';
 import katex from 'katex';
 import 'katex/dist/katex.css';
