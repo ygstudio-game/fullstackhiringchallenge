@@ -1,6 +1,15 @@
 # ✍️ Smart Blog Editor
 
 A full-stack, Notion-style blog editor with **real-time AI writing assistance**, **intelligent auto-save**, and minimalist **"Nordic Editorial"** design. Built as a hiring challenge showcasing **System Architecture**, **State Management**, and **Component Design**.
+Live Demo:
+
+
+**Live Demo:**
+- Frontend: https://smartblogeditoryb.vercel.app/
+- Backend API: https://smartblogeditorybbackend.vercel.app/
+- API Documentation: https://smartblogeditorybbackend.vercel.app/docs
+---
+
 
 ![Smart Blog Editor Auther](s1.png)
 ![Smart Blog Editor Viewer](s2.png)
