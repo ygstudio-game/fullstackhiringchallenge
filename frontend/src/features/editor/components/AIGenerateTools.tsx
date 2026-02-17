@@ -54,8 +54,11 @@ export function AIGenerateTools() {
   }, [editor]);
 
   return (
-    // Uses 'border-line' for theme-aware bordering
-    <div className="flex items-center gap-1.5 border-l border-line/50 pl-4 ml-2 shrink-0">
+    /* Key Responsive Changes:
+      - Reduced padding/margin on mobile (pl-2 ml-1 vs pl-4 ml-2)
+      - Flex-nowrap to prevent icons from stacking awkwardly
+    */
+    <div className="flex items-center gap-1 sm:gap-1.5 border-l border-line/50 pl-2 sm:pl-4 ml-1 sm:ml-2 shrink-0">
       <AIButton 
         onClick={() => handleGenerate('summarize')}
         isLoading={activeAction === 'summarize'}
@@ -70,7 +73,7 @@ export function AIGenerateTools() {
         isLoading={activeAction === 'continue'}
         isDisabled={activeAction !== null}
         label="Continue"
-        kbd="⌘J"
+        kbd="J"
         title="Continue writing at bottom"
         icon={<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>}
       />
@@ -84,15 +87,18 @@ function AIButton({ onClick, isLoading, isDisabled, label, icon, kbd, title }: a
       onClick={onClick}
       disabled={isDisabled}
       title={title}
+      /* Responsive UX:
+        - Icon-only on mobile (label hidden below 'md' breakpoint)
+        - Reduced horizontal padding on mobile (px-2 vs px-3)
+      */
       className={`
-        relative group flex items-center gap-2 px-2.5 h-8 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95
+        relative group flex items-center justify-center sm:justify-start gap-2 px-2 sm:px-3 h-8 rounded-lg text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95
         ${isLoading 
-          ? 'bg-canvas text-ink ring-1 ring-line' 
+          ? 'bg-canvas text-ink ring-1 ring-line min-w-[32px] sm:min-w-[100px]' 
           : 'bg-transparent text-muted hover:text-ink hover:bg-canvas disabled:opacity-30'
         }
       `}
     >
-      {/* Premium Shimmer: uses CSS var(--shimmer-color) defined in index.css */}
       {isLoading && (
         <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
           <div className="w-full h-full animate-shimmer" />
@@ -103,14 +109,19 @@ function AIButton({ onClick, isLoading, isDisabled, label, icon, kbd, title }: a
         {icon}
       </span>
       
-      <span className="relative z-10">
-        {isLoading ? 'Thinking' : label}
+      {/* Label is hidden on mobile to save space, but "Thinking" shows to provide feedback */}
+      <span className={`relative z-10 ${isLoading ? 'block' : 'hidden sm:block'}`}>
+        {isLoading ? (
+          <>
+            <span className="hidden sm:inline">Thinking</span>
+            <span className="sm:hidden">...</span>
+          </>
+        ) : label}
       </span>
       
-      {/* Keyboard Hint: only visible on hover in light/dark mode */}
       {kbd && !isLoading && (
         <span className="hidden lg:block ml-0.5 opacity-0 group-hover:opacity-40 text-[9px] transition-opacity">
-          {kbd}
+          ⌘{kbd}
         </span>
       )}
     </button>

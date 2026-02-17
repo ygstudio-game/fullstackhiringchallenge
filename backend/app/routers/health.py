@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-import motor.motor_asyncio
 from app.database import get_db
 
 router = APIRouter() # No prefix puts it in 'default'

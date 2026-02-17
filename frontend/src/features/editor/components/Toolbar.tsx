@@ -35,10 +35,11 @@ export function Toolbar() {
   const FONT_SIZES = ['12px', '14px', '16px', '18px', '20px', '24px', '30px'];
 
   return (
-    <div className="flex items-center gap-1.5 p-1.5 bg-panel/80 backdrop-blur-xl border border-line rounded-sm shadow-pill overflow-x-auto transition-all duration-300">
+ 
+    <div className="sticky top-0 z-10 flex items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 bg-panel/90 backdrop-blur-xl border border-line rounded-lg shadow-sm w-full max-w-full overflow-x-auto no-scrollbar scroll-smooth transition-all">
       
-      {/* 1. History (Undo/Redo) */}
-      <div className="flex items-center border-r border-line/50 pr-1.5 mr-1 shrink-0">
+      {/* 1. History - Essential: Always Visible */}
+      <div className="flex items-center border-r border-line/30 pr-1 shrink-0">
         <ToolbarButton 
           onClick={() => editor.dispatchCommand(UNDO_COMMAND, undefined)} 
           title="Undo"
@@ -51,83 +52,81 @@ export function Toolbar() {
         />
       </div>
 
-      {/* 2. Text Formatting */}
-      <div className="flex items-center border-r border-line/50 pr-1.5 mr-1 shrink-0">
+      {/* 2. Text Formatting - High Priority */}
+      <div className="flex items-center border-r border-line/30 pr-1 shrink-0">
         <ToolbarButton 
           onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')} 
           label="B" 
-          className="font-bold"
+          className="font-bold text-sm"
         />
         <ToolbarButton 
           onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')} 
           label="I" 
-          className="italic"
+          className="italic text-sm"
         />
         <ToolbarButton 
           onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')} 
           label="U" 
-          className="underline underline-offset-4"
+          className="underline underline-offset-4 text-sm"
         />
       </div>
 
-      {/* 3. Text Styling */}
-      <div className="flex items-center gap-2 border-r border-line/50 pr-2 mr-1 shrink-0 px-1">
-        <select 
-          onChange={(e) => applyStyleText({ 'font-size': e.target.value })}
-          className="text-[11px] font-bold uppercase tracking-wider bg-transparent hover:bg-canvas rounded-sm px-2 py-1 cursor-pointer outline-none text-muted hover:text-ink transition-colors"
-          title="Font Size"
-        >
-          <option value="" disabled selected>Size</option>
-          {FONT_SIZES.map(size => <option key={size} value={size}>{size}</option>)}
-        </select>
+      {/* 3. Text Styling - Hidden/Collapsed logic for small screens */}
+      <div className="flex items-center gap-1 sm:gap-2 border-r border-line/30 pr-1 shrink-0">
+        <div className="relative group">
+          <select 
+            onChange={(e) => applyStyleText({ 'font-size': e.target.value })}
+            className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider bg-transparent hover:bg-canvas rounded-md px-1 sm:px-2 py-1 cursor-pointer outline-none text-muted hover:text-ink transition-colors appearance-none"
+            title="Font Size"
+          >
+            <option value="" disabled selected>Size</option>
+            {FONT_SIZES.map(size => <option key={size} value={size}>{size}</option>)}
+          </select>
+        </div>
 
-        <div className="flex items-center gap-1.5 hover:bg-canvas px-2 py-1 rounded-sm cursor-pointer transition-colors relative group" title="Text Color">
-          <span className="text-[13px] font-bold text-ink">A</span>
+        <div className="flex items-center gap-1 hover:bg-canvas px-1 sm:px-2 py-1 rounded-md cursor-pointer transition-colors relative shrink-0" title="Text Color">
+          <span className="text-xs font-bold text-ink">A</span>
           <input 
             type="color" 
             onChange={(e) => applyStyleText({ 'color': e.target.value })}
-            className="w-4 h-4 p-0 border-0 rounded-full cursor-pointer bg-transparent overflow-hidden"
+            className="w-3.5 h-3.5 p-0 border-0 rounded-full cursor-pointer bg-transparent overflow-hidden"
           />
         </div>
       </div>
 
-      {/* 4. Alignment */}
-      <div className="flex items-center border-r border-line/50 pr-1.5 mr-1 shrink-0">
+      {/* 4. Alignment - Icons: Always Visible but smaller gaps */}
+      <div className="flex items-center border-r border-line/30 pr-1 shrink-0">
         <ToolbarButton 
           onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')} 
           title="Align Left"
-          icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="17" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="17" y1="18" x2="3" y2="18"></line></svg>}
+          icon={<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="17" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="17" y1="18" x2="3" y2="18"></line></svg>}
         />
         <ToolbarButton 
           onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')} 
           title="Align Center"
-          icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="10" x2="6" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="18" y1="18" x2="6" y2="18"></line></svg>}
+          icon={<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="10" x2="6" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="18" y1="18" x2="6" y2="18"></line></svg>}
         />
       </div>
 
-      {/* 5. Blocks */}
-      <div className="flex gap-1 shrink-0 px-1">
-        <button onClick={() => formatHeading('h1')} className="px-2.5 py-1 text-[11px] font-bold text-muted hover:text-ink hover:bg-canvas rounded-sm transition-all">H1</button>
-        <button onClick={() => formatHeading('h2')} className="px-2.5 py-1 text-[11px] font-bold text-muted hover:text-ink hover:bg-canvas rounded-sm transition-all">H2</button>
-        <ToolbarButton onClick={() => editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)} label="•" />
-        <ToolbarButton onClick={() => editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)} label="1." />
+      {/* 5. Blocks - Final group */}
+      <div className="flex gap-0.5 sm:gap-1 shrink-0 items-center">
+        <button onClick={() => formatHeading('h1')} className="h-8 w-8 text-[11px] font-bold text-muted hover:text-ink hover:bg-canvas rounded-md transition-all">H1</button>
+        <button onClick={() => formatHeading('h2')} className="h-8 w-8 text-[11px] font-bold text-muted hover:text-ink hover:bg-canvas rounded-md transition-all">H2</button>
+        <ToolbarButton onClick={() => editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)} label="•" className="text-lg" />
+        <ToolbarButton onClick={() => editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)} label="1." className="text-xs" />
       </div>
     </div>
   );
 }
 
-/**
- * Reusable Mini-component for Toolbar Buttons
- * Maintains the consistent luxury feel
- */
 function ToolbarButton({ onClick, icon, label, title, className = "" }: any) {
   return (
     <button
       onClick={onClick}
       title={title}
-      className={`w-8 h-8 flex items-center justify-center rounded-sm text-muted hover:text-ink hover:bg-canvas transition-all duration-200 active:scale-90 ${className}`}
+      className={`min-w-[32px] w-8 h-8 flex items-center justify-center rounded-md text-muted hover:text-ink hover:bg-canvas transition-all duration-200 active:scale-90 shrink-0 ${className}`}
     >
-      {icon || <span className="text-[13px] font-medium">{label}</span>}
+      {icon || <span className="font-medium">{label}</span>}
     </button>
   );
 }

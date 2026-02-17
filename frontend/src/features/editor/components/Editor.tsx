@@ -44,10 +44,7 @@ function onError(error: Error) {
   console.error('Lexical Error:', error);
 }
 
-/**
- * MAANG UI/UX Tip: Floating Word Count
- * Positioned as a subtle HUD element that disappears when not typing.
- */
+
 export function WordCountPlugin() {
   const [editor] = useLexicalComposerContext();
   const [count, setCount] = useState(0);
@@ -63,7 +60,8 @@ export function WordCountPlugin() {
   }, [editor]);
 
   return (
-    <div className="fixed bottom-8 right-8 px-3 py-1.5 bg-panel/50 backdrop-blur-md border border-line rounded-md text-[10px] font-bold tracking-widest text-muted transition-all hover:opacity-100 opacity-40 select-none">
+    /* Responsive HUD: Hidden on very small screens, repositioned to avoid mobile keyboards */
+    <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 px-3 py-1.5 bg-panel/50 backdrop-blur-md border border-line rounded-md text-[10px] font-bold tracking-widest text-muted transition-all hover:opacity-100 opacity-40 select-none z-40 hidden sm:block">
       {count} WORDS
     </div>
   );
@@ -88,7 +86,7 @@ export function Editor({ }: { documentId: string }) {
 
   return (
     // 1. Outer Container: Flex center with vertical padding
-    <div className="flex flex-col items-center w-full min-h-full bg-canvas py-12 transition-colors duration-500">
+    <div className="flex flex-col items-center w-full min-h-full bg-canvas py-4 md:py-12 transition-colors duration-500 px-2 sm:px-4">
       
       <LexicalComposer initialConfig={initialConfig}>
            {/* 1. TOP HEADER: Status & AI Tools */}
@@ -122,11 +120,11 @@ export function Editor({ }: { documentId: string }) {
         </div>
 
         {/* 3. THE FRAMED CANVAS: Added Border, Rounded Corners, and Shadow */}
-        <div className="w-full max-w-[900px] bg-panel/30 border border-line rounded-md shadow-float overflow-hidden backdrop-blur-sm">
+        <div className="w-full max-w-[900px] bg-panel/30 border border-line rounded-xl shadow-float overflow-hidden backdrop-blur-sm">
           
           {/* Internal Gutter Layout */}
           <div 
-            className="relative px-16 py-20 min-h-[80vh]" 
+            className="relative px-6 py-10 md:px-16 md:py-20 min-h-[70vh] md:min-h-[80vh]" 
             ref={editorContainerRef}
           >
             {/* The + and drag handle now float inside this elegant frame */}
@@ -134,11 +132,11 @@ export function Editor({ }: { documentId: string }) {
             <RichTextPlugin
               contentEditable={
                 <ContentEditable 
-  className="outline-none font-serif text-[19px] leading-[1.8] text-ink min-h-[500px] pb-[20vh]" 
+                  className="outline-none font-serif text-[17px] md:text-[19px] leading-[1.6] md:leading-[1.8] text-ink min-h-[500px] pb-[10vh]" 
 />
               }
               placeholder={
-                <div className="absolute top-20 left-16 text-muted/30 font-serif italic text-[19px] pointer-events-none select-none">
+                <div className="absolute top-10 left-6 md:top-20 md:left-16 text-muted/30 font-serif italic text-[17px] md:text-[19px] pointer-events-none select-none">
                   Write something extraordinary...
                 </div>
               }

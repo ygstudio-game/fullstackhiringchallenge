@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useEditorStore, useAuthStore } from '@stores';
 import { postService } from '@api/services/postService';
-import { useNavigate } from 'react-router-dom'; // <-- Add this
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { ThemeToggle } from '@/components/ui/ThemeToggle'; 
 
@@ -9,96 +9,99 @@ export function HeaderActions() {
   const { documentId, localState, setDocumentStatus, documentStatus, syncDraftInList } = useEditorStore();
   const { logout, email } = useAuthStore();
   const [shareText, setShareText] = useState('Share');
-const navigate = useNavigate(); // <-- Add this
+  const navigate = useNavigate();
+
   const handlePublish = async () => {
     if (!documentId || !localState) return;
-    
     try {
-      // 1. Send the lexical state update to ensure the latest changes are saved
       await postService.update(documentId, {
         lexical_state: JSON.parse(localState),
         status: 'PUBLISHED'
       });
-      
-      // 2. Trigger the publish endpoint
       await postService.publish(documentId);
-      
-      // 3. Update Global State
       setDocumentStatus('PUBLISHED');
       syncDraftInList(documentId, { 
         status: 'PUBLISHED',
         content: JSON.parse(localState) 
       });
-      
-      toast.success('Document published successfully!'); // You can add success toasts manually
+      toast.success('Document published successfully!');
     } catch (error) {
       console.error("Publishing failed:", error);
-      toast.error('Failed to publish document. Please try again.'); // You can add error toasts manually
+      toast.error('Failed to publish.');
     }
   };
+
   const handleLogout = () => {
-    logout(); // 1. Purge the Auth Zustand Store & LocalStorage
-    navigate(`/login`); // 2. Redirect to Login page
-   };
+    logout();
+    navigate(`/login`);
+  };
 
   const handleShare = async () => {
     if (!documentId) return;
-    
     const shareUrl = `${window.location.origin}/preview/${documentId}`;
-    
     try {
       await navigator.clipboard.writeText(shareUrl);
       setShareText('Copied!');
-      toast.success('Share link copied to clipboard!'); // You can add success toasts manually
+      toast.success('Link copied!');
       setTimeout(() => setShareText('Share'), 2000);
     } catch (err) {
-      console.error('Failed to copy!', err);
-      toast.error('Failed to copy share link. Please try again.'); // You can add error toasts manually
+      toast.error('Failed to copy.');
     }
   };
 
   return (
-    <div className="flex items-center gap-3">
-      {/* Share Button */}
+    <div className="flex items-center gap-2 sm:gap-4">
+      {/* 1. Share Button: Icon-only on mobile */}
       <button 
         onClick={handleShare}
-        className="text-sm font-medium text-gray-500 hover:text-yellow-500  transition-colors w-16 text-center"
+        className="flex items-center justify-center p-2 sm:p-0 text-sm font-medium text-muted hover:text-accent transition-colors min-w-[40px] sm:min-w-[64px]"
+        title="Share Document"
       >
-        {shareText}
+        <svg className="w-5 h-5 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+        </svg>
+        <span className="hidden sm:inline">{shareText}</span>
       </button>
 
-      {/* Publish Button */}
+      {/* 2. Publish Button: Reduced padding on mobile */}
       <button 
         onClick={handlePublish}
         disabled={documentStatus === 'PUBLISHED'}
-        className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+        className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all shrink-0 ${
           documentStatus === 'PUBLISHED' 
-          ? 'bg-green-100 text-green-700 cursor-default' 
-          : 'bg-black text-white hover:bg-gray-800'
+          ? 'bg-accent/10 text-accent cursor-default border border-accent/20' 
+          : 'bg-ink text-canvas hover:opacity-90 active:scale-95'
         }`}
       >
-        {documentStatus === 'PUBLISHED' ? '✓ Published' : 'Publish'}
+        {documentStatus === 'PUBLISHED' ? '✓' : 'Publish'}
+        <span className="hidden sm:inline ml-1">{documentStatus === 'PUBLISHED' ? 'Published' : ''}</span>
       </button>
 
-      {/* Vertical Divider - Uses our soft 'line' color */}
-      <div className="w-px h-5 bg-line mx-1 hidden sm:block"></div>
+      <div className="w-px h-5 bg-line mx-1 hidden md:block"></div>
 
-      {/* 2. THE THEME TOGGLE */}
       <ThemeToggle />
 
-      {/* Profile & Logout Section */}
-      <div className="flex items-center gap-3 border-l border-gray-200 pl-4 ml-2">
-        <div className="flex items-center justify-center w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full font-bold text-sm uppercase">
+      {/* 3. Profile & Logout: Compact on mobile */}
+      <div className="flex items-center gap-2 sm:gap-3 border-l border-line pl-2 sm:pl-4">
+        <div className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 bg-ink/5 text-ink rounded-full font-bold text-[10px] sm:text-xs uppercase border border-line">
           {email ? email.charAt(0) : 'U'}
         </div>
-        <span className="text-xs text-gray-600 font-medium truncate max-w-[120px] hidden sm:block">
-          {email || 'User'}
+        
+        {/* Email hidden on mobile to save space */}
+        <span className="text-xs text-muted font-medium truncate max-w-[80px] hidden lg:block">
+          {email}
         </span>
+
+        {/* Logout: Icon on mobile, Button on desktop */}
         <button
-          onClick={handleLogout} // <-- UPDATE: Point to the new handler
-          className="text-xs font-semibold text-red-600 hover:text-red-800 transition-colors bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-md"
+          onClick={handleLogout}
+          className="p-2 sm:px-3 sm:py-1.5 text-xs font-semibold text-red-500 hover:bg-red-500/10 rounded-md transition-all"
+          title="Logout"
         >
-          Logout
+          <svg className="w-5 h-5 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          <span className="hidden sm:inline">Logout</span>
         </button>
       </div>
     </div>
