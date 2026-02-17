@@ -21,9 +21,9 @@ export const editorTheme = {
     strikethrough: 'line-through',
     code: 'bg-gray-100 px-1 py-0.5 rounded font-mono text-sm text-red-500',
   },
-  table: 'border-collapse border border-gray-200 w-full my-4 rounded-sm table-fixed',
-  tableCell: 'border border-gray-200 p-2 text-sm align-top outline-none min-w-[100px]',
-  tableCellHeader: 'bg-gray-50 font-semibold border border-gray-200 p-2 text-sm align-top text-left',
-  tableRow: 'border-b border-gray-200 hover:bg-gray-50/50 transition-colors',
+  table: 'border-collapse border border-gray-300 w-full my-4 rounded-sm table-fixed',
+  tableCell: 'border border-gray-300 p-2 text-sm align-top outline-none min-w-[100px]',
+  tableCellHeader: ' font-semibold border border-gray-300 p-2 text-sm align-top text-left',
+  tableRow: 'border-b border-gray-300 hover:bg-gray-50/50 transition-colors',
 
 };

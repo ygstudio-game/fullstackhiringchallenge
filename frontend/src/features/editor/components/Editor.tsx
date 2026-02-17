@@ -38,6 +38,7 @@ import { SlashMenuPlugin } from '@/plugins/SlashMenuPlugin';
 import { AIGenerateTools } from './AIGenerateTools';
 import { MagicWandButton } from './MagicWandButton';
 import { SyncStatusIndicator } from './SyncStatusIndicator';
+import { CodeBlockExitPlugin } from '@/plugins/CodeBlockExitPlugin';
 
 function onError(error: Error) {
   console.error('Lexical Error:', error);
@@ -62,7 +63,7 @@ export function WordCountPlugin() {
   }, [editor]);
 
   return (
-    <div className="fixed bottom-8 right-8 px-3 py-1.5 bg-panel/50 backdrop-blur-md border border-line rounded-full text-[10px] font-bold tracking-widest text-muted transition-all hover:opacity-100 opacity-40 select-none">
+    <div className="fixed bottom-8 right-8 px-3 py-1.5 bg-panel/50 backdrop-blur-md border border-line rounded-md text-[10px] font-bold tracking-widest text-muted transition-all hover:opacity-100 opacity-40 select-none">
       {count} WORDS
     </div>
   );
@@ -109,7 +110,7 @@ export function Editor({ }: { documentId: string }) {
   </div>
 
   {/* Right Side: Action Cluster */}
-  <div className="flex items-center gap-1 bg-panel/50 backdrop-blur-md p-1 rounded-xl border border-line/50 shadow-sm">
+  <div className="flex items-center gap-1 bg-panel/50 backdrop-blur-md p-1 rounded-md border border-line/50 shadow-sm">
     <MagicWandButton />
     <AIGenerateTools />
   </div>
@@ -120,7 +121,7 @@ export function Editor({ }: { documentId: string }) {
         </div>
 
         {/* 3. THE FRAMED CANVAS: Added Border, Rounded Corners, and Shadow */}
-        <div className="w-full max-w-[900px] bg-panel/30 border border-line rounded-[32px] shadow-float overflow-hidden backdrop-blur-sm">
+        <div className="w-full max-w-[900px] bg-panel/30 border border-line rounded-md shadow-float overflow-hidden backdrop-blur-sm">
           
           {/* Internal Gutter Layout */}
           <div 
@@ -129,12 +130,11 @@ export function Editor({ }: { documentId: string }) {
           >
             {/* The + and drag handle now float inside this elegant frame */}
             <HoverBlockMenuPlugin containerRef={editorContainerRef} />
-
             <RichTextPlugin
               contentEditable={
                 <ContentEditable 
-                  className="outline-none font-serif text-[19px] leading-[1.8] text-ink transition-colors duration-300" 
-                />
+  className="outline-none font-serif text-[19px] leading-[1.8] text-ink min-h-[500px] pb-[20vh]" 
+/>
               }
               placeholder={
                 <div className="absolute top-20 left-16 text-muted/30 font-serif italic text-[19px] pointer-events-none select-none">
@@ -142,11 +142,12 @@ export function Editor({ }: { documentId: string }) {
                 </div>
               }
               ErrorBoundary={LexicalErrorBoundary}
-            />
+              />
 
             {/* Core Extensions */}
             <TablePlugin />
             <AutoLinkPlugin />
+              <CodeBlockExitPlugin />
             <CodeHighlightPlugin />
             <EquationsPlugin />
             <SlashMenuPlugin />
