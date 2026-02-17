@@ -38,7 +38,7 @@ export function FloatingToolbar() {
   return createPortal(
     <div
       ref={toolbarRef}
-      className="absolute z-50 flex gap-1 p-1 bg-gray-900 border border-gray-700 rounded-lg shadow-xl -translate-x-1/2 transition-opacity"
+      className="absolute z-50 flex gap-1 p-1 bg-gray-900 border border-gray-700 rounded-sm shadow-xl -translate-x-1/2 transition-opacity"
       style={{ top: coords.top, left: coords.left }}
     >
       <button

@@ -35,7 +35,7 @@ export function Toolbar() {
   const FONT_SIZES = ['12px', '14px', '16px', '18px', '20px', '24px', '30px'];
 
   return (
-    <div className="flex items-center gap-1.5 p-1.5 bg-panel/80 backdrop-blur-xl border border-line rounded-2xl shadow-pill overflow-x-auto transition-all duration-300">
+    <div className="flex items-center gap-1.5 p-1.5 bg-panel/80 backdrop-blur-xl border border-line rounded-sm shadow-pill overflow-x-auto transition-all duration-300">
       
       {/* 1. History (Undo/Redo) */}
       <div className="flex items-center border-r border-line/50 pr-1.5 mr-1 shrink-0">
@@ -74,14 +74,14 @@ export function Toolbar() {
       <div className="flex items-center gap-2 border-r border-line/50 pr-2 mr-1 shrink-0 px-1">
         <select 
           onChange={(e) => applyStyleText({ 'font-size': e.target.value })}
-          className="text-[11px] font-bold uppercase tracking-wider bg-transparent hover:bg-canvas rounded-lg px-2 py-1 cursor-pointer outline-none text-muted hover:text-ink transition-colors"
+          className="text-[11px] font-bold uppercase tracking-wider bg-transparent hover:bg-canvas rounded-sm px-2 py-1 cursor-pointer outline-none text-muted hover:text-ink transition-colors"
           title="Font Size"
         >
           <option value="" disabled selected>Size</option>
           {FONT_SIZES.map(size => <option key={size} value={size}>{size}</option>)}
         </select>
 
-        <div className="flex items-center gap-1.5 hover:bg-canvas px-2 py-1 rounded-lg cursor-pointer transition-colors relative group" title="Text Color">
+        <div className="flex items-center gap-1.5 hover:bg-canvas px-2 py-1 rounded-sm cursor-pointer transition-colors relative group" title="Text Color">
           <span className="text-[13px] font-bold text-ink">A</span>
           <input 
             type="color" 
@@ -107,8 +107,8 @@ export function Toolbar() {
 
       {/* 5. Blocks */}
       <div className="flex gap-1 shrink-0 px-1">
-        <button onClick={() => formatHeading('h1')} className="px-2.5 py-1 text-[11px] font-bold text-muted hover:text-ink hover:bg-canvas rounded-lg transition-all">H1</button>
-        <button onClick={() => formatHeading('h2')} className="px-2.5 py-1 text-[11px] font-bold text-muted hover:text-ink hover:bg-canvas rounded-lg transition-all">H2</button>
+        <button onClick={() => formatHeading('h1')} className="px-2.5 py-1 text-[11px] font-bold text-muted hover:text-ink hover:bg-canvas rounded-sm transition-all">H1</button>
+        <button onClick={() => formatHeading('h2')} className="px-2.5 py-1 text-[11px] font-bold text-muted hover:text-ink hover:bg-canvas rounded-sm transition-all">H2</button>
         <ToolbarButton onClick={() => editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)} label="•" />
         <ToolbarButton onClick={() => editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)} label="1." />
       </div>
@@ -125,7 +125,7 @@ function ToolbarButton({ onClick, icon, label, title, className = "" }: any) {
     <button
       onClick={onClick}
       title={title}
-      className={`w-8 h-8 flex items-center justify-center rounded-lg text-muted hover:text-ink hover:bg-canvas transition-all duration-200 active:scale-90 ${className}`}
+      className={`w-8 h-8 flex items-center justify-center rounded-sm text-muted hover:text-ink hover:bg-canvas transition-all duration-200 active:scale-90 ${className}`}
     >
       {icon || <span className="text-[13px] font-medium">{label}</span>}
     </button>

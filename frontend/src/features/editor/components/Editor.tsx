@@ -110,7 +110,8 @@ export function Editor({ }: { documentId: string }) {
   </div>
 
   {/* Right Side: Action Cluster */}
-  <div className="flex items-center gap-1 bg-panel/50 backdrop-blur-md p-1 rounded-md border border-line/50 shadow-sm">
+  <div className="flex items-center gap-1 bg-panel/50 backdrop-blur-md p-1 rounded-md
+   border border-line/50 shadow-sm">
     <MagicWandButton />
     <AIGenerateTools />
   </div>
