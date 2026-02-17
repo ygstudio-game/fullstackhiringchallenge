@@ -62,7 +62,7 @@ const navigate = useNavigate(); // <-- Add this
       {/* Share Button */}
       <button 
         onClick={handleShare}
-        className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors w-16 text-center"
+        className="text-sm font-medium text-gray-500 hover:text-white transition-colors w-16 text-center"
       >
         {shareText}
       </button>
