@@ -2,8 +2,8 @@
 
 A full-stack, Notion-style blog editor with **real-time AI writing assistance**, **intelligent auto-save**, and minimalist **"Nordic Editorial"** design. Built as a hiring challenge showcasing **System Architecture**, **State Management**, and **Component Design**.
 
-![Smart Blog Editor Auther](https://github.com/ygstudio-game/fullstackhiringchallenge/blob/main/s1.png)
-![Smart Blog Editor Viewer](https://github.com/ygstudio-game/fullstackhiringchallenge/blob/main/s2.png)
+![Smart Blog Editor Auther](s1.png)
+![Smart Blog Editor Viewer](s2.png)
 
 ## ✨ Features
 
