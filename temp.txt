@@ -1,0 +1,52 @@
+backend/
+├── app/
+│   ├── __init__.py
+│   ├── main.py                 # Application entry point & CORS
+│   ├── config.py               # Environment variables & settings
+│   ├── database.py             # MongoDB connection lifecycle
+│   ├── models/                 # DB models (Optional for raw Motor, but good practice)
+│   ├── schemas/                # Pydantic validation models
+│   │   ├── __init__.py
+│   │   ├── auth.py
+│   │   ├── post.py
+│   │   └── ai.py
+│   ├── services/               # Business logic & Database queries
+│   │   ├── __init__.py
+│   │   ├── post_service.py     # Evolves from your repository.py
+│   │   └── ai_service.py
+│   ├── routers/                # FastAPI Endpoints (HTTP layer)
+│   │   ├── __init__.py
+│   │   ├── auth.py
+│   │   ├── posts.py
+│   │   └── ai.py
+│   └── utils/                  # Shared helpers
+│       ├── __init__.py
+│       ├── security.py         # Bcrypt and JWT encoding
+│       └── dependencies.py     # get_current_user, get_db
+└── requirements.txt
+
+
+client/
+├── public/                 # Static assets (favicons, robots.txt)
+├── src/
+│   ├── api/                # Global Axios/Fetch instances & interceptors
+│   ├── assets/             # Global static files (images, fonts, global CSS)
+│   ├── components/         # Shared UI components (Atomic design: Button, Input)
+│   │   ├── common/         # Low-level UI primitives
+│   │   ├── layout/         # Navbar, Sidebar, Footer
+│   │   └── ui/             # Complex shared components
+│   ├── features/           # Domain-specific modules (The Heart of the App)
+│   │   ├── auth/           # Login/Signup logic, components, and hooks
+│   │   ├── editor/         # Lexical logic, GhostTextNode, SlashMenu
+│   │   └── dashboard/      # Post cards, Draft lists
+│   ├── hooks/              # Shared custom hooks (useDebounce, useLocalStorage)
+│   ├── pages/              # Route-level components (Page wrappers)
+│   ├── stores/             # Global state management (Zustand/Redux)
+│   ├── theme/              # Tailwind configs, CSS variables, or MUI themes
+│   ├── utils/              # Pure helper functions (formatters, validators)
+│   ├── __tests__/          # Integration and end-to-end tests
+│   ├── App.jsx             # Root routing logic
+│   └── main.jsx            # Entry point
+├── .env.example            # Template for environment variables
+├── vercel.json             # Production deployment config
+└── eslint.config.js        # Linting rules
